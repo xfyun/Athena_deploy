@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "athenaserving.name" -}}
+{{- define "mmocr-ase.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "athenaserving.fullname" -}}
+{{- define "mmocr-ase.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "athenaserving.chart" -}}
+{{- define "mmocr-ase.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "athenaserving.labels" -}}
-helm.sh/chart: {{ include "athenaserving.chart" . }}
-{{ include "athenaserving.selectorLabels" . }}
+{{- define "mmocr-ase.labels" -}}
+helm.sh/chart: {{ include "mmocr-ase.chart" . }}
+{{ include "mmocr-ase.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "athenaserving.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "athenaserving.name" . }}
+{{- define "mmocr-ase.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "mmocr-ase.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "athenaserving.serviceAccountName" -}}
+{{- define "mmocr-ase.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "athenaserving.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "mmocr-ase.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
