@@ -1,22 +1,22 @@
-# Default values for loadbalance.
+# Default values for mmocr-ase.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: public.ecr.aws/iflytek-open/loadbalance
+  repository:  artifacts.iflytek.com/docker-private/aipaas/yolov7
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "4.2.1"
+  tag: "v1.0.0"
 
 imagePullSecrets: []
-nameOverride: ""
+nameOverride: "yolov7-demo"
 fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: false 
+  create: fasle 
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -35,13 +35,14 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
-# 配置中心
-cfg:
-  project: test-project
-  service: loadbalance
-  version: 4.2.1 # not use 
-  cluster: test-cluster
-
+args:
+ - ./AIservice 
+ -  -m=1 
+ -  -c=aiges-remote.toml 
+ -  -s=yolov7
+ -  -u=http://athena-polaris-companion:6868
+ -  -p=test-project
+ -  -g=test-cluster
 
 service:
   type: ClusterIP
